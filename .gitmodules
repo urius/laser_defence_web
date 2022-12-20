@@ -1,6 +1,3 @@
 [submodule "Assets/Src/lib/DI"]
 	path = Assets/Src/lib/DI
 	url = git@github.com:urius/SimpleDI.git
-[submodule "Assets/Src/lib/UniTask"]
-	path = Assets/Src/lib/UniTask
-	url = git@github.com:Cysharp/UniTask.git
