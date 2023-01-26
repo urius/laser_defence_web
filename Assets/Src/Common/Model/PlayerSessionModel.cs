@@ -1,25 +1,34 @@
 ﻿using System;
+using Src.Common.Model;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerSessionModel", menuName = "Common/Model/PlayerSessionModel")]
 public class PlayerSessionModel : ScriptableObject
 {
-    public static PlayerSessionModel Instance { get; private set; }
-    public static PlayerGlobalModel Model => Instance.PlayerGlobalModel;
-
     [SerializeField]
     private PlayerGlobalModel _playerGlobalModel;
     public PlayerGlobalModel PlayerGlobalModel => _playerGlobalModel;
-
-    public bool SaveGoldFlag = false;
+    
+    public event Action<GameState> GameStateChanged = delegate {  }; 
 
     public SelectedLevelData SelectedLevelData;
     public int SelectedLevelIndex => SelectedLevelData.LevelIndex;
     public LevelConfig SelectedLevelConfig => SelectedLevelData.LevelConfig;
 
+    public GameState GameState { get; private set; } = GameState.Undefined;
+
     public void Reset()
     {
         SelectedLevelData = new SelectedLevelData(LevelsCollectionProvider.Instance.Levels);
+        SetGameState(GameState.Undefined);
+    }
+
+    public void SetGameState(GameState state)
+    {
+        if (GameState == state) return;
+        
+        GameState = state;
+        GameStateChanged(GameState);
     }
 
     public void ResetSelectedBoosters(bool needRefundGold)
@@ -49,10 +58,5 @@ public class PlayerSessionModel : ScriptableObject
     public void AdvanceSelectedLevel()
     {
         SelectedLevelData.AdvanceSelectedLevel();
-    }
-
-    private void OnEnable()
-    {
-        Instance = this;
     }
 }

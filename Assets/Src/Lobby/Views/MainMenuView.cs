@@ -16,8 +16,8 @@ public class MainMenuView : MonoBehaviour
     {
         var tcs = new UniTaskCompletionSource();
 
-        var rectTrtansform = gameObject.transform as RectTransform;
-        rectTrtansform.LeanSetLocalPosX(2 * rectTrtansform.sizeDelta.x);
+        var rectTransform = gameObject.transform as RectTransform;
+        rectTransform.LeanSetLocalPosX(2 * rectTransform.sizeDelta.x);
 
         gameObject.LeanMoveLocalX(0, 0.7f)
             .setEaseOutQuad()
