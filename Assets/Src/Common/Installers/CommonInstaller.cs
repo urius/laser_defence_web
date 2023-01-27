@@ -18,10 +18,10 @@ namespace Src.Common.Installers
                 .As<ITopUiTransformProvider>()
                 .As<IUiCanvasTransformProvider>()
                 .As<IRootGameTransformProvider>()
-                .FromMethod(() => rootTransformsProvider);
+                .FromInstance(rootTransformsProvider);
             
-            Binder.Bind<PlayerSessionModel>().AsSelf().FromMethod(() => playerSessionModel);
-            Binder.Bind<UIPrefabsConfig>().AsSelf().FromMethod(() => uiPrefabsConfig);
+            Binder.Bind<PlayerSessionModel>().AsSelf().FromInstance(playerSessionModel);
+            Binder.Bind<UIPrefabsConfig>().AsSelf().FromInstance(uiPrefabsConfig);
         }
     }
 }
