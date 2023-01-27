@@ -1,3 +1,5 @@
+using System;
+using Cysharp.Threading.Tasks;
 using SimpleDI;
 using Src.Common.Installers;
 using Src.Common.Model;
@@ -15,7 +17,7 @@ public class InitScript : MonoBehaviour
     
     private RootMediator _rootMediator;
 
-    private void Start()
+    private void Awake()
     {
         CommonInstaller.Install(
             _topUICanvasTransform, 
@@ -24,11 +26,20 @@ public class InitScript : MonoBehaviour
             _playerSessionModelInstance,
             _uiPrefabsConfig);
         
+        Resolver.Resolve<PlayerSessionModel>().Reset();
+    }
+
+    private void Start()
+    {
         _rootMediator = new RootMediator();
         _rootMediator.Mediate();
-        
-        Resolver.Resolve<PlayerSessionModel>().Reset();
-        Resolver.Resolve<PlayerSessionModel>().SetGameState(GameState.MainMenu);
+
+        StartLoadSequence();
+    }
+
+    private async void StartLoadSequence()
+    {
+        var loadResult = await new LoadDataCommand().ExecuteAsync(_topUICanvasTransform);
     }
 
     private void OnDestroy()
