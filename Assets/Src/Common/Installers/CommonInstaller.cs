@@ -1,5 +1,6 @@
 ﻿using SimpleDI;
 using Src.Common.Commands;
+using Src.Common.Dispatcher;
 using Src.Common.Providers;
 using UnityEngine;
 
@@ -24,6 +25,11 @@ namespace Src.Common.Installers
             Binder.Bind<PlayerSessionModel>().AsSelf().FromInstance(playerSessionModel);
             Binder.Bind<UIPrefabsConfig>().AsSelf().FromInstance(uiPrefabsConfig);
 
+            Binder.Bind<EventDispatcher>()
+                .As<IEventDispatcher>()
+                .As<IEventListener>()
+                .AsSingleton();
+            
             Binder.Bind<CommandExecutor, ICommandExecutor>();
         }
     }
