@@ -1,5 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using SimpleDI;
+using Src.Common.Dispatcher;
+using Src.Lobby.Events;
 using UnityEngine;
 
 namespace Src.Lobby.Views
@@ -8,13 +10,15 @@ namespace Src.Lobby.Views
     {
         private readonly RectTransform _targetTransform;
         private readonly UIPrefabsConfig _uiPrefabsConfig;
-        
+        private readonly IEventDispatcher _eventDispatcher;
+
         private MainMenuView _view;
 
         public MainMenuMediator(RectTransform targetTransform)
         {
             _targetTransform = targetTransform;
             _uiPrefabsConfig = Resolver.Resolve<UIPrefabsConfig>();
+            _eventDispatcher = Resolver.Resolve<IEventDispatcher>();
         }
 
         public void Mediate()
@@ -54,7 +58,7 @@ namespace Src.Lobby.Views
 
         private void OnPlayButtonClicked()
         {
-            
+            _eventDispatcher.Dispatch(new MainMenuStartGameClickedEvent());
         }
     }
 }

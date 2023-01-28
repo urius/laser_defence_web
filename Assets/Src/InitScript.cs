@@ -24,7 +24,7 @@ public class InitScript : MonoBehaviour
             _gameRootTransform, 
             _playerSessionModelInstance,
             _uiPrefabsConfig);
-        
+
         Resolver.Resolve<PlayerSessionModel>().Reset();
     }
 
