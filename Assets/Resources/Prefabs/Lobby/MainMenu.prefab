@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playButtonView: {fileID: 7295801431530764960}
+  _rectTransform: {fileID: 7295801430665468229}
 --- !u!222 &7295801430665468231
 CanvasRenderer:
   m_ObjectHideFlags: 0

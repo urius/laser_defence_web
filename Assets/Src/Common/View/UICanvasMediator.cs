@@ -2,21 +2,19 @@
 using Src.Common.Model;
 using Src.Common.Providers;
 using Src.Lobby.Views;
-using UnityEngine;
 
 namespace Src.Common.View
 {
     public class UICanvasMediator : IMediator
     {
-        private readonly RectTransform _uiCanvasTransform;
+        private readonly IUiCanvasTransformProvider _uiCanvasTransformProvider;
         private readonly PlayerSessionModel _playerSessionModel;
         
         private ILobbyScreenMediator _currentMediator;
 
         public UICanvasMediator()
         {
-            var uiCanvasTransformProvider = Resolver.Resolve<IUiCanvasTransformProvider>();
-            _uiCanvasTransform = uiCanvasTransformProvider.RectTransform;
+            _uiCanvasTransformProvider = Resolver.Resolve<IUiCanvasTransformProvider>();
             _playerSessionModel = Resolver.Resolve<PlayerSessionModel>();
         }
         
@@ -38,6 +36,12 @@ namespace Src.Common.View
         private void Unsubscribe()
         {
             _playerSessionModel.GameStateChanged -= OnGameStateChanged;
+            
+            if (_currentMediator != null)
+            {
+                _currentMediator.Unmediate();
+                _currentMediator = null;
+            }
         }
 
         private async void OnGameStateChanged(GameState newState)
@@ -45,7 +49,7 @@ namespace Src.Common.View
             switch (newState)
             {
                 case GameState.MainMenu:
-                    _currentMediator = new MainMenuMediator(_uiCanvasTransform);
+                    _currentMediator = new MainMenuMediator(_uiCanvasTransformProvider.RectTransform);
                     break;
             }
 

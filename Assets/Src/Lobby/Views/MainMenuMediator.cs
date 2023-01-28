@@ -20,10 +20,14 @@ namespace Src.Lobby.Views
         public void Mediate()
         {
             _view = Object.Instantiate(_uiPrefabsConfig.MainMenuScreenPrefab, _targetTransform);
+
+            Subscribe();
         }
 
         public void Unmediate()
         {
+            Unsubscribe();
+            
             Object.Destroy(_view.gameObject);
             _view = null;
         }
@@ -35,7 +39,22 @@ namespace Src.Lobby.Views
 
         public UniTask HideAsync()
         {
-            throw new System.NotImplementedException();
+            return _view.DisappearAsync();
+        }
+
+        private void Subscribe()
+        {
+            _view.PlayButtonView.Clicked += OnPlayButtonClicked;
+        }
+
+        private void Unsubscribe()
+        {
+            _view.PlayButtonView.Clicked -= OnPlayButtonClicked;
+        }
+
+        private void OnPlayButtonClicked()
+        {
+            
         }
     }
 }

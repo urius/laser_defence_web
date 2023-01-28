@@ -1,8 +1,7 @@
-using System;
 using Cysharp.Threading.Tasks;
 using SimpleDI;
+using Src.Common.Commands;
 using Src.Common.Installers;
-using Src.Common.Model;
 using Src.Common.View;
 using UnityEngine;
 
@@ -34,12 +33,13 @@ public class InitScript : MonoBehaviour
         _rootMediator = new RootMediator();
         _rootMediator.Mediate();
 
-        StartLoadSequence();
+        StartLoadSequence().Forget();
     }
 
-    private async void StartLoadSequence()
+    private async UniTaskVoid StartLoadSequence()
     {
-        var loadResult = await new LoadDataCommand().ExecuteAsync(_topUICanvasTransform);
+        var commandExecutor = Resolver.Resolve<ICommandExecutor>();
+        var loadResult = await commandExecutor.ExecuteAsync<LoadDataCommand>();
     }
 
     private void OnDestroy()

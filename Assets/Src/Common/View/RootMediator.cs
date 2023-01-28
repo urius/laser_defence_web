@@ -1,6 +1,4 @@
-﻿using SimpleDI;
-using Src.Common.Providers;
-using UnityEngine;
+﻿using Src.Common.Providers;
 
 namespace Src.Common.View
 {

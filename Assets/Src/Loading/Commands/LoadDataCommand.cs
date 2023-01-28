@@ -1,12 +1,12 @@
-﻿using UnityEngine;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Assets.Src.Common.Local_Save;
 using SimpleDI;
+using Src.Common.Commands;
 using Src.Common.Model;
 
-public struct LoadDataCommand
+public struct LoadDataCommand : IAsyncCommand
 {
-    public async UniTask<bool> ExecuteAsync(RectTransform displayErrorRectTransform)
+    public UniTask<bool> ExecuteAsync()
     {
         var playerSessionModel = Resolver.Resolve<PlayerSessionModel>();
         
@@ -25,21 +25,9 @@ public struct LoadDataCommand
             playerSessionModel.SetModel(playerGlobalModel);
 
             playerSessionModel.SetGameState(GameState.MainMenu);
-            
-            return true;
-        }
-        else
-        {
-            var localizationProvider = LocalizationProvider.Instance;
-            var trayAgainText = localizationProvider.Get(LocalizationGroupId.ErrorPopup, "try_again");
-            var errorDescription = localizationProvider.Get(LocalizationGroupId.ErrorPopup, "retreive_data_error_description");
-            errorDescription = string.Format(errorDescription, 0);
-            //var errorPopup = ErrorPopup.Show(displayErrorRectTransform, errorDescription, trayAgainText);
-
-            //await errorPopup.LifeTimeTask;
         }
 
-        return false;
+        return UniTask.FromResult(isLoaded);
     }
 
     private UserDataDto GetDefaultPlayerDataDto()

@@ -1,4 +1,5 @@
 ﻿using SimpleDI;
+using Src.Common.Commands;
 using Src.Common.Providers;
 using UnityEngine;
 
@@ -22,6 +23,8 @@ namespace Src.Common.Installers
             
             Binder.Bind<PlayerSessionModel>().AsSelf().FromInstance(playerSessionModel);
             Binder.Bind<UIPrefabsConfig>().AsSelf().FromInstance(uiPrefabsConfig);
+
+            Binder.Bind<CommandExecutor, ICommandExecutor>();
         }
     }
 }
