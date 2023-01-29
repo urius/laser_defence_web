@@ -6,4 +6,9 @@ namespace Src.Common.Commands
     {
         UniTask<bool> ExecuteAsync();
     }
+    
+    public interface IAsyncCommand<in T>
+    {
+        UniTask<bool> ExecuteAsync(T parameter);
+    }
 }

@@ -8,5 +8,10 @@ namespace Src.Common.Commands
         {
            return new T().ExecuteAsync();
         }
+
+        public UniTask<bool> ExecuteAsync<T, TArg>(TArg argument) where T : IAsyncCommand<TArg>, new()
+        {
+            return new T().ExecuteAsync(argument);
+        }
     }
 }
