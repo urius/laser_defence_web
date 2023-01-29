@@ -3,6 +3,8 @@ using SimpleDI;
 using Src.Common.Commands;
 using Src.Common.Installers;
 using Src.Common.View;
+using Src.Lobby.Commands;
+using Src.Lobby.Events;
 using UnityEngine;
 
 public class InitScript : MonoBehaviour
@@ -25,7 +27,17 @@ public class InitScript : MonoBehaviour
             _playerSessionModelInstance,
             _uiPrefabsConfig);
 
+        MapCommands();
+
         Resolver.Resolve<PlayerSessionModel>().Reset();
+    }
+
+    private void MapCommands()
+    {
+        var commandMapper = Resolver.Resolve<EventCommandMapper>();
+        
+        commandMapper.Map<MainMenuPlayClickedEvent, MainMenuPlayClickedCommand>();
+        //commandMapper.Map<MainMenuPlayClickedEvent, TestCommandWithNoArgs>(); //test
     }
 
     private void Start()

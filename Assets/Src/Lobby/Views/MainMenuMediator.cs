@@ -58,7 +58,7 @@ namespace Src.Lobby.Views
 
         private void OnPlayButtonClicked()
         {
-            _eventDispatcher.Dispatch(new MainMenuStartGameClickedEvent());
+            _eventDispatcher.Dispatch(new MainMenuPlayClickedEvent());
         }
     }
 }

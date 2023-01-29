@@ -2,7 +2,7 @@
 
 namespace Src.Lobby.Events
 {
-    public struct MainMenuStartGameClickedEvent : IDispatcherEvent
+    public struct MainMenuPlayClickedEvent : IDispatcherEvent
     {
         
     }

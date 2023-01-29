@@ -29,6 +29,8 @@ namespace Src.Common.Installers
                 .As<IEventDispatcher>()
                 .As<IEventListener>()
                 .AsSingleton();
+
+            Binder.Bind<EventCommandMapper>().AsSelf().AsSingleton();
             
             Binder.Bind<CommandExecutor, ICommandExecutor>();
         }
