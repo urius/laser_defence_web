@@ -28,6 +28,7 @@ public class DebugGridOutput : MonoBehaviour
                 var cellPos = cellConfig.CellPosition;
                 var pos = _grid.CellToWorld(new Vector3Int(cellPos.x, cellPos.y, 0));
                 var cellGo = Instantiate(cellPrefab, transform);
+                cellGo.layer = 10; // Set layer
                 cellGo.transform.position = pos;
             }
         }
