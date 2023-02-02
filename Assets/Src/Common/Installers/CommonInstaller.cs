@@ -8,10 +8,9 @@ namespace Src.Common.Installers
 {
     public static class CommonInstaller
     {
-        public static void Install(
-            RectTransform topUiCanvasTransform, RectTransform uiCanvasTransform, 
+        public static void Install(RectTransform topUiCanvasTransform, RectTransform uiCanvasTransform,
             Transform gameRoot, PlayerSessionModel playerSessionModel,
-            UIPrefabsConfig uiPrefabsConfig)
+            UIPrefabsConfig uiPrefabsConfig, CellConfigProvider cellConfigProvider)
         {
             var rootTransformsProvider = new RootTransformsProvider();
             rootTransformsProvider.Setup(topUiCanvasTransform, uiCanvasTransform, gameRoot);
@@ -24,6 +23,7 @@ namespace Src.Common.Installers
             
             Binder.Bind<PlayerSessionModel>().AsSelf().FromInstance(playerSessionModel);
             Binder.Bind<UIPrefabsConfig>().AsSelf().FromInstance(uiPrefabsConfig);
+            Binder.Bind<CellConfigProvider>().AsSelf().FromInstance(cellConfigProvider);
 
             Binder.Bind<EventDispatcher>()
                 .As<IEventDispatcher>()

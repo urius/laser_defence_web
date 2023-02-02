@@ -6,8 +6,8 @@ public class SelectedLevelData
 {
     public event Action<BoosterId> BoosterAdded = delegate { };
     public event Action<BoosterId> BoosterRemoved = delegate { };
+    public event Action<LevelConfig> SelectedLevelChanged = delegate {  }; 
 
-    public int LevelIndex = -1;
     public MusicId MusicId;
 
     public readonly BoosterValues BoosterValues = new BoosterValues();
@@ -18,6 +18,23 @@ public class SelectedLevelData
     public SelectedLevelData(LevelConfig[] allLevels)
     {
         _allLevels = allLevels;
+    }
+    
+    public int LevelIndex { get; private set; }
+
+    public bool HasNextLevel(int currentLevelIndex)
+    {
+        return ValidateLevelIndex(currentLevelIndex + 1);
+    }
+    
+    public bool HasPreviousLevel(int currentLevelIndex)
+    {
+        return ValidateLevelIndex(currentLevelIndex - 1);
+    }
+
+    public bool ValidateLevelIndex(int levelIndex)
+    {
+        return levelIndex > 0 && levelIndex < _allLevels.Length;
     }
 
     public LevelConfig LevelConfig => LevelIndex >= 0 ? _allLevels[LevelIndex] : null;
@@ -61,11 +78,15 @@ public class SelectedLevelData
 
     internal void AdvanceSelectedLevel()
     {
-        LevelIndex++;
-        if (LevelIndex > _allLevels.Length - 1)
-        {
-            LevelIndex = 0;
-        }
+        SetSelectedLevelIndex(HasNextLevel(LevelIndex) ? (LevelIndex + 1) : 0);
+    }
+
+    internal void SetSelectedLevelIndex(int newIndex)
+    {
+        if (newIndex == LevelIndex || ValidateLevelIndex(newIndex) == false) return;
+        
+        LevelIndex = newIndex;
+        SelectedLevelChanged(_allLevels[LevelIndex]);
     }
 }
 

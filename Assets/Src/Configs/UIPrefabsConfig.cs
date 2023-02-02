@@ -11,7 +11,8 @@ public class UIPrefabsConfig : ScriptableObject
 
     //main screen
     public MainMenuView MainMenuScreenPrefab;
-    public GameObject SelectLevelScreenPrefab;
+    public SelectLevelScreenView SelectLevelScreenPrefab;
+    public LevelImageRenderer LevelImageRenderer;
     public GameObject SelectLevelItemContainerPrefab;
     public GameObject SelectLevelItemPrefab;
     public GameObject SelectLevelItemSelectionPrefab;

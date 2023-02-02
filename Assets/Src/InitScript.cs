@@ -15,6 +15,7 @@ public class InitScript : MonoBehaviour
     [SerializeField] private PlayerSessionModel _playerSessionModelInstance;
     [SerializeField] private UIPrefabsConfig _uiPrefabsConfig;
     [SerializeField] private LevelsCollectionProvider _levelsCollectionProvider;
+    [SerializeField] private CellConfigProvider _cellConfigProvider;
     
     private RootMediator _rootMediator;
 
@@ -25,7 +26,8 @@ public class InitScript : MonoBehaviour
             _uiCanvasTransform,
             _gameRootTransform, 
             _playerSessionModelInstance,
-            _uiPrefabsConfig);
+            _uiPrefabsConfig,
+            _cellConfigProvider);
 
         MapCommands();
 
@@ -37,6 +39,7 @@ public class InitScript : MonoBehaviour
         var commandMapper = Resolver.Resolve<EventCommandMapper>();
         
         commandMapper.Map<MainMenuPlayClickedEvent, MainMenuPlayClickedCommand>();
+        commandMapper.Map<SelectLevelScreenChangeLevelClickedEvent, SelectLevelScreenChangeLevelClickedCommand>();
         //commandMapper.Map<MainMenuPlayClickedEvent, TestCommandWithNoArgs>(); //test
     }
 

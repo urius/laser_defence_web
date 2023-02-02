@@ -1,4 +1,5 @@
-﻿using SimpleDI;
+﻿using Cysharp.Threading.Tasks;
+using SimpleDI;
 using Src.Common.Model;
 using Src.Common.Providers;
 using Src.Lobby.Views;
@@ -46,18 +47,21 @@ namespace Src.Common.View
 
         private async void OnGameStateChanged(GameState newState)
         {
-            switch (newState)
+            var hideCurrentMediatorTask = _currentMediator?.HideAsync() ?? UniTask.CompletedTask;
+
+            _currentMediator = newState switch
             {
-                case GameState.MainMenu:
-                    _currentMediator = new MainMenuMediator(_uiCanvasTransformProvider.RectTransform);
-                    break;
-            }
+                GameState.MainMenu => new MainMenuMediator(_uiCanvasTransformProvider.RectTransform),
+                GameState.SelectLevelMenu => new SelectLevelScreenMediator(_uiCanvasTransformProvider.RectTransform),
+                _ => null
+            };
 
             if (_currentMediator == null) return;
             
             _currentMediator.Mediate();
             
             await _currentMediator.ShowAsync();
+            await hideCurrentMediatorTask;
         }
     }
 }

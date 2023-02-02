@@ -1,7 +1,8 @@
 ﻿using Cysharp.Threading.Tasks;
+using SimpleDI;
 using Src.Common.Commands;
+using Src.Common.Model;
 using Src.Lobby.Events;
-using UnityEngine;
 
 namespace Src.Lobby.Commands
 {
@@ -9,8 +10,10 @@ namespace Src.Lobby.Commands
     {
         public UniTask<bool> ExecuteAsync(MainMenuPlayClickedEvent @event)
         {
-            Debug.Log("MainMenuPlayClickedCommand");
-
+            var playerSessionModel = Resolver.Resolve<PlayerSessionModel>();
+            
+            playerSessionModel.SetGameState(GameState.SelectLevelMenu);
+            
             return UniTask.FromResult(true);
         }
     }

@@ -9,9 +9,15 @@ public class PlayerSessionModel : ScriptableObject
     private PlayerGlobalModel _playerGlobalModel;
     public PlayerGlobalModel PlayerGlobalModel => _playerGlobalModel;
     
-    public event Action<GameState> GameStateChanged = delegate {  }; 
+    public event Action<GameState> GameStateChanged = delegate {  };
 
-    public SelectedLevelData SelectedLevelData;
+    public event Action<LevelConfig> SelectedLevelChanged
+    {
+        add => SelectedLevelData.SelectedLevelChanged += value;
+        remove => SelectedLevelData.SelectedLevelChanged -= value;
+    }
+
+    public SelectedLevelData SelectedLevelData { get; private set; }
     public int SelectedLevelIndex => SelectedLevelData.LevelIndex;
     public LevelConfig SelectedLevelConfig => SelectedLevelData.LevelConfig;
 
@@ -29,6 +35,16 @@ public class PlayerSessionModel : ScriptableObject
         
         GameState = state;
         GameStateChanged(GameState);
+    }
+
+    public bool HasNextLevel()
+    {
+        return SelectedLevelData.HasNextLevel(SelectedLevelIndex);
+    }
+
+    public bool HasPreviousLevel()
+    {
+        return SelectedLevelData.HasPreviousLevel(SelectedLevelIndex);
     }
 
     public void ResetSelectedBoosters(bool needRefundGold)
