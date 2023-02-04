@@ -81,7 +81,7 @@ namespace Src.Lobby.Views
         {
             _view.LeftButtonClicked -= OnLeftButtonClicked;
             _view.RightButtonClicked -= OnRightButtonClicked;
-            _playerSessionModel.SelectedLevelChanged += OnSelectedLevelChanged;
+            _playerSessionModel.SelectedLevelChanged -= OnSelectedLevelChanged;
         }
 
         private void OnLeftButtonClicked()
