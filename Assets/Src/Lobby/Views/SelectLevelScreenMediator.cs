@@ -91,7 +91,7 @@ namespace Src.Lobby.Views
 
         private void OnRightButtonClicked()
         {
-            _eventDispatcher.Dispatch(new SelectLevelScreenChangeLevelClickedEvent(1));
+            _eventDispatcher.Dispatch(new SelectLevelScreenChangeLevelClickedEvent(+1));
         }
 
         private void OnSelectedLevelChanged(LevelConfig selectedLevel)
