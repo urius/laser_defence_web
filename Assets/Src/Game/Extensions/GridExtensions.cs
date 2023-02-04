@@ -13,12 +13,22 @@ public static class GridExtensions
       {
          currentCellConfig =
             cellConfigProvider.GetConfig(cellConfig.CellConfigMin.CellType, cellConfig.CellConfigMin.CellSubType);
-
-         var cellPos = cellConfig.CellPosition;
-         var pos = grid.CellToWorld(new Vector3Int(cellPos.x, cellPos.y, 0));
-         cellGo = Object.Instantiate(currentCellConfig.Prefab, grid.transform);
-         cellGo.layer = layer;
-         cellGo.transform.position = pos;
+         DrawCell(grid, cellConfig.CellPosition, currentCellConfig, layer);
       }
+      
+      foreach (var modifierConfig in levelConfig.Modifiers)
+      {
+         currentCellConfig =
+            cellConfigProvider.GetConfig(modifierConfig.CellConfigMin.CellType, modifierConfig.CellConfigMin.CellSubType);
+         DrawCell(grid, modifierConfig.CellPosition, currentCellConfig, layer);
+      }
+   }
+
+   private static void DrawCell(Grid grid, Vector2Int cellPosition, CellConfig cellConfig, int layer)
+   {
+      var pos = grid.CellToWorld(new Vector3Int(cellPosition.x, cellPosition.y, 0));
+      var cellGo = Object.Instantiate(cellConfig.Prefab, grid.transform);
+      cellGo.layer = layer;
+      cellGo.transform.position = pos;
    }
 }
