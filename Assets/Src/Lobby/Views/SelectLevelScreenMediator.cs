@@ -72,6 +72,7 @@ namespace Src.Lobby.Views
 
         private void Subscribe()
         {
+            _view.BackButtonClicked += OnBackButtonClicked;
             _view.LeftButtonClicked += OnLeftButtonClicked;
             _view.RightButtonClicked += OnRightButtonClicked;
             _playerSessionModel.SelectedLevelChanged += OnSelectedLevelChanged;
@@ -79,9 +80,15 @@ namespace Src.Lobby.Views
 
         private void Unsubscribe()
         {
+            _view.BackButtonClicked -= OnBackButtonClicked;
             _view.LeftButtonClicked -= OnLeftButtonClicked;
             _view.RightButtonClicked -= OnRightButtonClicked;
             _playerSessionModel.SelectedLevelChanged -= OnSelectedLevelChanged;
+        }
+
+        private void OnBackButtonClicked()
+        {
+            _eventDispatcher.Dispatch(new BackButtonClickedEvent());
         }
 
         private void OnLeftButtonClicked()

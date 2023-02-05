@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7295801430665468230}
   - component: {fileID: 7295801430665468231}
   - component: {fileID: 7295801430665468228}
+  - component: {fileID: 8411048366467051570}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -54,6 +55,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playButtonView: {fileID: 7295801431530764960}
   _rectTransform: {fileID: 7295801430665468229}
+  _canvasGroup: {fileID: 8411048366467051570}
 --- !u!222 &7295801430665468231
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -92,6 +94,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &8411048366467051570
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7295801430665468226}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &2500052602651568108
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,16 +6,17 @@ public class MainMenuView : MonoBehaviour
 {
     [SerializeField] private ButtonView _playButtonView;
     [SerializeField] private RectTransform _rectTransform;
+    [SerializeField] private CanvasGroup _canvasGroup;
     
     public ButtonView PlayButtonView => _playButtonView;
     
     public UniTask AppearAsync()
     {
-        return _rectTransform.AppearFromRightAsync();
+        return _rectTransform.AppearFromRightAsync(_canvasGroup);
     }
 
     public UniTask DisappearAsync()
     {
-        return _rectTransform.DisappearToLeftAsync();
+        return _rectTransform.DisappearToLeftAsync(_canvasGroup);
     }
 }
