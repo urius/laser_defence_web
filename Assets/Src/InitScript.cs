@@ -40,6 +40,7 @@ public class InitScript : MonoBehaviour
         
         commandMapper.Map<MainMenuPlayClickedEvent, MainMenuPlayClickedCommand>();
         commandMapper.Map<SelectLevelScreenChangeLevelClickedEvent, SelectLevelScreenChangeLevelClickedCommand>();
+        commandMapper.Map<BackButtonClickedEvent, LobbyBackButtonClickedCommand>();
         //commandMapper.Map<MainMenuPlayClickedEvent, TestCommandWithNoArgs>(); //test
     }
 
