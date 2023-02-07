@@ -12,7 +12,7 @@ public class MainMenuView : MonoBehaviour
     
     public UniTask AppearAsync()
     {
-        return _rectTransform.AppearFromRightAsync(_canvasGroup);
+        return _rectTransform.AppearFromLeftAsync(_canvasGroup);
     }
 
     public UniTask DisappearAsync()

@@ -48,7 +48,7 @@ public class SelectLevelScreenView : MonoBehaviour
 
     public UniTask DisappearAsync()
     {
-        return _rectTransform.DisappearToLeftAsync(_canvasGroup);
+        return _rectTransform.DisappearToRightAsync(_canvasGroup);
     }
 
     private void OnLeftButtonClicked()

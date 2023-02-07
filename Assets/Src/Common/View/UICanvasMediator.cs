@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using SimpleDI;
 using Src.Common.Model;
 using Src.Common.Providers;
@@ -47,7 +48,7 @@ namespace Src.Common.View
 
         private async void OnGameStateChanged(GameState newState)
         {
-            var hideCurrentMediatorTask = _currentMediator?.HideAsync() ?? UniTask.CompletedTask;
+            var hideCurrentMediatorTask = HideAndUnmediateAsync(_currentMediator);
 
             _currentMediator = newState switch
             {
@@ -62,6 +63,15 @@ namespace Src.Common.View
             
             await _currentMediator.ShowAsync();
             await hideCurrentMediatorTask;
+        }
+
+        private static async UniTask HideAndUnmediateAsync(ILobbyScreenMediator mediator)
+        {
+            if (mediator != null)
+            {                
+                await mediator.HideAsync();
+                mediator.Unmediate();
+            }
         }
     }
 }

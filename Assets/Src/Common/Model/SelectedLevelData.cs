@@ -34,7 +34,7 @@ public class SelectedLevelData
 
     public bool ValidateLevelIndex(int levelIndex)
     {
-        return levelIndex > 0 && levelIndex < _allLevels.Length;
+        return levelIndex >= 0 && levelIndex < _allLevels.Length;
     }
 
     public LevelConfig LevelConfig => LevelIndex >= 0 ? _allLevels[LevelIndex] : null;

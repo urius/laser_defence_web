@@ -8,11 +8,11 @@ public class LevelImageRenderer : MonoBehaviour
     public void RenderLevel(LevelConfig levelConfig, CellConfigProvider cellConfigProvider)
     {
         Clear();
-        
-        gameObject.SetActive(true);
+
+        _renderCamera.enabled = true;
         _grid.DrawLevel(levelConfig, cellConfigProvider);
         _renderCamera.Render();
-        gameObject.SetActive(false);
+        _renderCamera.enabled = false;
         
         Clear();
     }
